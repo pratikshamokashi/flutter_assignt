@@ -1,145 +1,149 @@
 import 'package:flutter/material.dart';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends StatelessWidget {
+  static const String _title = 'Drawer Example';
+
   @override
-  _FormState createState() => _FormState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
 }
 
-class _FormState extends State<DashboardScreen> {
-  GlobalKey<FormState> _key = new GlobalKey();
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  String nameString;
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Search Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Home',
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+    Text('Products List',
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+    Text('Contact us',
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+    Text('Special discounts',
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-    });}
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameString = "Welcome";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-          title: Text("Dashboard"),backgroundColor: Colors.yellow,
+      appBar: AppBar(backgroundColor: Colors.yellow,
+        title:  new Text (
+          'Home', style: new TextStyle(color: Colors.blue),
+        ),
       ),
       body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //     items: const <BottomNavigationBarItem>[
-      //       BottomNavigationBarItem(
-      //           icon: Icon(Icons.home),
-      //           label: ('Home'),
-      //           backgroundColor: Colors.green
-      //       ),
-      //       BottomNavigationBarItem(
-      //           icon: Icon(Icons.search),
-      //           label: ('Search'),
-      //           backgroundColor: Colors.yellow
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.person),
-      //         title: Text('Profile'),
-      //         backgroundColor: Colors.blue,
-      //       ),
-      //     ],
-      //     type: BottomNavigationBarType.shifting,
-      //     currentIndex: _selectedIndex,
-      //     selectedItemColor: Colors.black,
-      //     iconSize: 40,
-      //     onTap: _onItemTapped,
-      //     elevation: 5
-      // ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: <Widget>[
-            UserAccountsDrawerHeader(accountName: Text("Pratiksha M"),
-                accountEmail: Text("pratiksha@gmail.com"),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.amber,
-                  child: Text("Sona",
-                    style: TextStyle(fontSize: 15,),
-                  ),
-                )
+            _widgetOptions.elementAt(_selectedIndex),
+            Text(
+              nameString,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
             ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-              onTap: (){
-                // Navigator.pop(context);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => LoginForm()),);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.wallet_giftcard), title: Text("Wallet"),
-              onTap: () {
-                // Navigator.pop(context);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AboutUs()),);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.redeem), title: Text("Redeem"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.local_offer), title: Text("Offers"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.attach_money_rounded), title: Text("10 + 1 Plan"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.shopping_bag), title: Text("My GoldMine"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
-            ),ListTile(
-              leading: Icon(Icons.mark_email_unread_sharp), title: Text("FAQ"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
-            ),ListTile(
-              leading: Icon(Icons.logout), title: Text("Logout"),
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ContactUs()),);
-                // Navigator.pop(context);
-              },
+            Container(
+              color: Colors.white,
+              child: FlutterLogo(size: MediaQuery.of(context).size.height * .4),
             ),
           ],
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+
+            UserAccountsDrawerHeader(
+              accountName: Text("Pratiksha M"),
+              accountEmail: Text("pratiksha@gmail.com"),
+              currentAccountPicture: CircleAvatar(backgroundColor: Colors.lightGreen,),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('HOME'),
+              //_onItemTapped("MyHomePage"),
+            ),
+            ListTile(
+              leading: Icon(Icons.money_rounded),
+              title: Text('MY WALLET'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('REDEEM'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('OFFERS'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('10+1 PLAN'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('MY GOLDMINE'),
+            ),
+            ListTile(
+              leading: Icon(Icons.question_answer),
+              title: Text('FAQ'),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('LOG OUT'),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+                backgroundColor: Colors.yellow),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                label: 'Products List',
+                backgroundColor: Colors.yellow),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.contacts),
+              label: 'Contact us',
+              backgroundColor: Colors.yellow,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt),
+              label: 'Special discounts',
+              backgroundColor: Colors.yellow,
+            ),
+          ],
+          type: BottomNavigationBarType.shifting,
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.green,
+          iconSize: 40,
+          onTap: _onItemTapped,
+          elevation: 5),
     );
   }
-  
 }
