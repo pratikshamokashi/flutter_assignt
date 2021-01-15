@@ -88,7 +88,7 @@ class _FormState extends State<SignupScreen> {
         Container(
             height: 50,
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: RaisedButton(
+              child: RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
               child: Text('Sign up'),

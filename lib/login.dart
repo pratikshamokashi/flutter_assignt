@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment/api/api_service.dart';
 import 'package:flutter_assignment/dashboard.dart';
+import 'package:flutter_assignment/model/login_model.dart';
 import 'package:flutter_assignment/signup.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _FormState createState() => _FormState();
@@ -11,6 +13,13 @@ class _FormState extends State<LoginScreen> {
   GlobalKey<FormState> _key = new GlobalKey();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  LoginRequestModel _loginRequestModel;
+  @override
+  void initState() {
+    super.initState();
+    _loginRequestModel = new LoginRequestModel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +65,12 @@ class _FormState extends State<LoginScreen> {
             )),
         Container(
           padding: EdgeInsets.all(10),
-          child: TextField(
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
             controller: nameController,
+            onSaved: (input) => _loginRequestModel.email = input,
+            validator: (input) => !input.contains("@")
+            ? "Email Id should be valid":null,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'User Name',
@@ -66,9 +79,13 @@ class _FormState extends State<LoginScreen> {
         ),
         Container(
           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-          child: TextField(
+          child: TextFormField(
             obscureText: true,
             controller: passwordController,
+            onSaved: (input) => _loginRequestModel.Password = input,
+            validator: (input) => input.length < 3
+            ? "Password should be greater than 3 character"
+                :null,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Password',
@@ -89,12 +106,34 @@ class _FormState extends State<LoginScreen> {
               textColor: Colors.white,
               color: Colors.blue,
               child: Text('Login'),
-              onPressed: _submit,
-              // () {
-              //   _submit,
-              //   print(nameController.text);
-              //   print(passwordController.text);
-              // },
+              onPressed: () {
+               if(_submit()){
+                 ApiService apiservice = ApiService();
+                 apiservice.login(_loginRequestModel).then((value){
+                   if(value.token.isNotEmpty){
+                     Fluttertoast.showToast(
+                         msg: "User Login successful!",
+                         toastLength: Toast.LENGTH_SHORT,
+                         gravity: ToastGravity.CENTER,
+                         timeInSecForIos: 1
+                     );
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (context) => DashboardScreen()),);
+                   }else{
+                     Fluttertoast.showToast(
+                         msg: "Login unsuccessful!",
+                         toastLength: Toast.LENGTH_SHORT,
+                         gravity: ToastGravity.CENTER,
+                         timeInSecForIos: 1
+                     );
+                   }
+                 });
+                 print(_loginRequestModel.toJson());
+               }
+                print(nameController.text);
+                print(passwordController.text);
+              },
             )
         ),
         Container(
@@ -135,13 +174,18 @@ class _FormState extends State<LoginScreen> {
         // )
 
 
-  _submit() {
+
+  bool  _submit() {
     // delete all screens from stack and make dashboard as a root of app.
     // Navigator.of(context).pushNamedAndRemoveUntil('dashboardscreen',
     //     ModalRoute.withName('/'));
+    final form=  _key.currentState;
+    if(form.validate()){
+      form.save();
+          return true;
+    }else{
+      return false;
+    }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DashboardScreen()),);
   }
 }
