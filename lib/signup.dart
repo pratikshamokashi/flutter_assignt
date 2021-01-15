@@ -40,30 +40,92 @@ class _FormState extends State<SignupScreen> {
   Widget getFormUI() {
     return new Column (
       children: <Widget>[
-        new TextFormField (
-          decoration: new InputDecoration(hintText: 'Email'),
-          maxLength: 32,
-        ),new TextFormField (
-          decoration: new InputDecoration(hintText: 'Phone Number'),
-          keyboardType: TextInputType.phone,
-          maxLength: 10,
-        ),new TextFormField (
-          decoration: new InputDecoration(hintText: 'First Name'),
-          maxLength: 32,
-        ),new TextFormField (
-          decoration: new InputDecoration(hintText: 'Last Name'),
-          maxLength: 32,
+        Container(
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'First Name',
+            ),
+          ),
         ),
-        new TextFormField (
-          decoration: new InputDecoration(hintText: 'Password'),
-          keyboardType: TextInputType.phone,
-          maxLength: 10,
+        Container(
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Last Name',
+            ),
+          ),
         ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Phone Number',
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Email',
+            ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+            ),
+          ),
+        ),
+        Container(
+            height: 50,
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: Text('Sign up'),
+              onPressed: _submit,
+              // () {
+              //   _submit,
+              //   print(nameController.text);
+              //   print(passwordController.text);
+              // },
+            )
+        ),
+
+
+        // new TextFormField (
+        //   decoration: new InputDecoration(hintText: 'Email'),
+        //   maxLength: 32,
+        // ),new TextFormField (
+        //   decoration: new InputDecoration(hintText: 'Phone Number'),
+        //   keyboardType: TextInputType.phone,
+        //   maxLength: 10,
+        // ),new TextFormField (
+        //   decoration: new InputDecoration(hintText: 'First Name'),
+        //   maxLength: 32,
+        // ),new TextFormField (
+        //   decoration: new InputDecoration(hintText: 'Last Name'),
+        //   maxLength: 32,
+        // ),
+        // new TextFormField (
+        //   decoration: new InputDecoration(hintText: 'Password'),
+        //   keyboardType: TextInputType.phone,
+        //   maxLength: 10,
+        // ),
         new SizedBox(height: 15.0),
-        new RaisedButton (
-          onPressed: _submit,
-          child: new Text('Sign Up'),
-        )
+        // new RaisedButton (
+        //   onPressed: _submit,
+        //   child: new Text('Sign Up'),
+        // )
       ],
     );
   }
