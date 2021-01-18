@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment/discount.dart';
+import 'package:flutter_assignment/login.dart';
+import 'package:flutter_assignment/productlist.dart';
+import 'package:flutter_assignment/share_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'contact.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const String _title = 'Drawer Example';
@@ -22,11 +30,16 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   String nameString;
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  List<Widget> _widgetOptions = <Widget>[
+    // DashboardScreen(),
+    // ProductList(),
+    // Contact(),
+    // SpecialDiscount()
     Text('Home',
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
     Text('Products List',
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+    Contact(),
     Text('Contact us',
         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
     Text('Special discounts',
@@ -74,7 +87,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
+          children:  <Widget>[
 
             UserAccountsDrawerHeader(
               accountName: Text("Pratiksha M"),
@@ -113,6 +126,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('LOG OUT'),
+              onTap: (){
+                Fluttertoast.showToast(
+                    msg: "User Logout successfully!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIos: 1
+                );
+                SharedService.logout().then((value) =>
+                    // Navigator.of(context).pushReplacementNamed("/login"));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),));
+              },
             ),
           ],
         ),

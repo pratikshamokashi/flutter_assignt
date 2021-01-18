@@ -1,11 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment/share_service.dart';
 import 'package:flutter_assignment/signup.dart';
-
 import 'dashboard.dart';
 import 'login.dart';
 
-void main() {
+Widget default_home = LoginScreen();
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  bool isLoggedIn = await SharedService.isLoggedIn();
+  if(isLoggedIn){
+    default_home = new DashboardScreen();
+  }
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {

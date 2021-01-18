@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment/api/api_service.dart';
 import 'package:flutter_assignment/dashboard.dart';
 import 'package:flutter_assignment/model/login_model.dart';
+import 'package:flutter_assignment/share_service.dart';
 import 'package:flutter_assignment/signup.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
@@ -117,6 +118,7 @@ class _FormState extends State<LoginScreen> {
                          gravity: ToastGravity.CENTER,
                          timeInSecForIos: 1
                      );
+                     SharedService.setLoginDetails(value);
                      Navigator.push(
                        context,
                        MaterialPageRoute(builder: (context) => DashboardScreen()),);
