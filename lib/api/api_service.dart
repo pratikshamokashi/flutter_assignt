@@ -1,4 +1,5 @@
 import 'package:flutter_assignment/model/login_model.dart';
+import 'package:flutter_assignment/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -18,4 +19,15 @@ Future<LoginResponseModel> login(LoginRequestModel loginRequestModel) async{
     throw Exception('Failed to load data');
   }
 }
+  Future<UserModel> getUsers() async{
+    String append = "users?page=2";
+
+    final response = await http.get(url+append);
+    if(response.statusCode == 200 ){
+      return UserModel.fromJson(json.decode(response.body));
+    }else{
+      throw Exception('Failed to load data');
+    }
+  }
+
 }
