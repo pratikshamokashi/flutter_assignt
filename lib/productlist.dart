@@ -8,6 +8,10 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Product List"),
+      ),
+    );
   }
 }

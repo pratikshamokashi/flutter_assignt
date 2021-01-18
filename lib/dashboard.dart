@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment/discount.dart';
+import 'package:flutter_assignment/home.dart';
 import 'package:flutter_assignment/login.dart';
 import 'package:flutter_assignment/productlist.dart';
 import 'package:flutter_assignment/share_service.dart';
@@ -29,28 +30,6 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   String nameString;
-  int _selectedIndex = 0;
-  static  List<Widget> _widgetOptions = <Widget>[
-    // DashboardScreen(),
-    // ProductList(),
-    // Contact(),
-    // SpecialDiscount()
-    Text('Home',
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-    Text('Products List',
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-    Contact(),
-    Text('Contact us',
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-    Text('Special discounts',
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {
@@ -66,24 +45,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           'Home', style: new TextStyle(color: Colors.blue),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            _widgetOptions.elementAt(_selectedIndex),
-            Text(
-              nameString,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              child: FlutterLogo(size: MediaQuery.of(context).size.height * .4),
-            ),
-          ],
-        ),
-      ),
+      body:Home(),
+      // Center(
+      //   child: Column(
+      //     children: <Widget>[
+      //       // _widgetOptions.elementAt(_selectedIndex),
+      //       // Text(
+      //       //   nameString,
+      //       //   style: TextStyle(
+      //       //     color: Colors.white,
+      //       //     fontSize: 15,
+      //       //   ),
+      //       // ),
+      //       callPage(_selectedIndex),
+      //       Container(
+      //         color: Colors.white,
+      //         child: FlutterLogo(size: MediaQuery.of(context).size.height * .4),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -143,33 +124,88 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-                backgroundColor: Colors.yellow),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                label: 'Products List',
-                backgroundColor: Colors.yellow),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.contacts),
-              label: 'Contact us',
-              backgroundColor: Colors.yellow,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt),
-              label: 'Special discounts',
-              backgroundColor: Colors.yellow,
-            ),
-          ],
-          type: BottomNavigationBarType.shifting,
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.green,
-          iconSize: 40,
-          onTap: _onItemTapped,
-          elevation: 5),
+      // bottomNavigationBar: BottomNavigationBar(
+      //     items:  <BottomNavigationBarItem>[
+      //       BottomNavigationBarItem(
+      //           icon: Icon(Icons.home),
+      //           label: 'Home',
+      //           backgroundColor: Colors.yellow),
+      //       BottomNavigationBarItem(
+      //           icon: Icon(Icons.list),
+      //           label: 'Products List',
+      //           backgroundColor: Colors.yellow),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.contacts),
+      //         label: 'Contact us',
+      //         backgroundColor: Colors.yellow,
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.receipt),
+      //         label: 'Special discounts',
+      //         backgroundColor: Colors.yellow,
+      //       ),
+      //     ],
+      //     type: BottomNavigationBarType.shifting,
+      //     currentIndex: _selectedIndex,
+      //     selectedItemColor: Colors.green,
+      //     iconSize: 40,
+      //     onTap: _onItemTapped,
+      //     elevation: 5),
     );
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeState();
+  }
+}
+
+class _HomeState extends State<Home> {
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+    HomeScreen(),
+    Contact(),
+    ProductList(),
+    SpecialDiscount(),
+    // PlaceholderWidget(Colors.white),
+    // PlaceholderWidget(Colors.deepOrange),
+    // PlaceholderWidget(Colors.blue),
+    // PlaceholderWidget(Colors.green)
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('HOME'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Contact Us'),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person), title: Text('Products List')),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Special Discounts'),
+          )
+        ],
+      ),
+    );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }

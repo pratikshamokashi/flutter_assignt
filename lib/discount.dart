@@ -7,6 +7,9 @@ class SpecialDiscount extends StatefulWidget {
 class _SpecialDiscountState extends State<SpecialDiscount> {
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Discount"),
+      ),
+    );  }
 }
