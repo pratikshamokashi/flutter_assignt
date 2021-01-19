@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment/api/api_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 class Contact extends StatefulWidget {
@@ -11,23 +12,23 @@ class _ContactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Contact List"),
-      ),
+      // appBar: new AppBar(
+      //   title: new Text("Contact List"),
+      // ),
       body :UserList()
     );
   }
 }
 
 class UserList extends StatelessWidget{
-  final String apiUrl = "https://randomuser.me/api/?results=10";
-
-  Future<List<dynamic>> fetchUsers() async {
-
-    var result = await http.get(apiUrl);
-    return json.decode(result.body)['results'];
-
-  }
+  // final String apiUrl = "https://randomuser.me/api/?results=10";
+  //
+  // Future<List<dynamic>> fetchUsers() async {
+  //
+  //   var result = await http.get(apiUrl);
+  //   return json.decode(result.body)['results'];
+  //
+  // }
 
   String _name(dynamic user){
     return user['name']['title'] + " " + user['name']['first'] + " " +  user['name']['last'];
@@ -41,13 +42,14 @@ class UserList extends StatelessWidget{
   String _age(Map<dynamic, dynamic> user){
     return "Age: " + user['dob']['age'].toString();
   }
-
+  ApiService apiService = ApiService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: FutureBuilder<List<dynamic>>(
-          future: fetchUsers(),
+
+          future: apiService.fetchUsers(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.hasData){
               print(_age(snapshot.data[0]));

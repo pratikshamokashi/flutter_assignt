@@ -42,7 +42,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.yellow,
         title:  new Text (
-          'Home', style: new TextStyle(color: Colors.blue),
+          nameString, style: new TextStyle(color: Colors.blue),
         ),
       ),
       body:Home(),
