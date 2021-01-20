@@ -31,6 +31,19 @@ class ApiService{
     }
   }
 
+  Future<bool> updateProfile(Profile data) async {
+    final response = await client.put(
+      "$baseUrl/api/profile/${data.id}",
+      headers: {"content-type": "application/json"},
+      body: profileToJson(data),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> deleteProfile(int id) async {
     final response = await client.delete(
       "$baseUrl/api/profile/$id",

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment/api/api_service.dart';
 import 'package:flutter_assignment/model/user_model.dart';
+import 'package:flutter_assignment/ui/contact.dart';
 import 'package:flutter_assignment/ui/dashboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -101,7 +102,7 @@ class _AddUserState extends State<AddUser> {
                                 );
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DashboardScreen()),);
+                                  MaterialPageRoute(builder: (context) => Contact()),);
                                 // Navigator.pop(_scaffoldState.currentState.context, true);
                               } else {
                                 _scaffoldState.currentState.showSnackBar(SnackBar(
@@ -110,17 +111,25 @@ class _AddUserState extends State<AddUser> {
                               }
                             });
                             } else {
-                            // profile.id = widget.profile.id;
-                            // _apiService.updateProfile(profile).then((isSuccess) {
-                            //   setState(() => _isLoading = false);
-                            //   if (isSuccess) {
-                            //     Navigator.pop(_scaffoldState.currentState.context, true);
-                            //   } else {
-                            //     _scaffoldState.currentState.showSnackBar(SnackBar(
-                            //       content: Text("Update data failed"),
-                            //     ));
-                            //   }
-                            // });
+                            profile.id = widget.profile.id;
+                            _apiService.updateProfile(profile).then((isSuccess) {
+                              setState(() => _isLoading = false);
+                              if (isSuccess) {
+                                Fluttertoast.showToast(
+                                    msg: "User updated successfully...!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIos: 1
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Contact()),);
+                              } else {
+                                _scaffoldState.currentState.showSnackBar(SnackBar(
+                                  content: Text("Update data failed"),
+                                ));
+                              }
+                            });
                           }
                           }
                     ),
