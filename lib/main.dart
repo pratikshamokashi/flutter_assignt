@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment/share_service.dart';
-import 'package:flutter_assignment/signup.dart';
-import 'dashboard.dart';
-import 'login.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/signup.dart';
+import 'ui/dashboard.dart';
+import 'ui/login.dart';
 
 Widget default_home = LoginScreen();
 void main() async{

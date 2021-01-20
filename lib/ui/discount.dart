@@ -8,8 +8,8 @@ class _SpecialDiscountState extends State<SpecialDiscount> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Discount"),
-      ),
+      // appBar: new AppBar(
+      //   title: new Text("Discount"),
+      // ),
     );  }
 }

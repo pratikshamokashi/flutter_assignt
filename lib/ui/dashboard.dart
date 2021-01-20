@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment/discount.dart';
-import 'package:flutter_assignment/home.dart';
-import 'package:flutter_assignment/login.dart';
-import 'package:flutter_assignment/productlist.dart';
+import 'package:flutter_assignment/model/user_model.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/discount.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/home.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/login.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/productlist.dart';
 import 'package:flutter_assignment/share_service.dart';
+import 'package:flutter_assignment/ui/AddUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -45,31 +47,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           nameString, style: new TextStyle(color: Colors.blue),
         ),
       ),
+
       body:Home(),
-      // Center(
-      //   child: Column(
-      //     children: <Widget>[
-      //       // _widgetOptions.elementAt(_selectedIndex),
-      //       // Text(
-      //       //   nameString,
-      //       //   style: TextStyle(
-      //       //     color: Colors.white,
-      //       //     fontSize: 15,
-      //       //   ),
-      //       // ),
-      //       callPage(_selectedIndex),
-      //       Container(
-      //         color: Colors.white,
-      //         child: FlutterLogo(size: MediaQuery.of(context).size.height * .4),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children:  <Widget>[
-
             UserAccountsDrawerHeader(
               accountName: Text("Pratiksha M"),
               accountEmail: Text("pratiksha@gmail.com"),
@@ -178,6 +161,15 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddUser()),);
+      },
+        child: Icon(Icons.add, color: Colors.yellow, size: 29,),
+        elevation: 2,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -208,4 +200,6 @@ class _HomeState extends State<Home> {
       _currentIndex = index;
     });
   }
+
+
 }

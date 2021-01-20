@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_assignment/signup.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/signup.dart';
 
 class LoginResponseModel {
   final String token;

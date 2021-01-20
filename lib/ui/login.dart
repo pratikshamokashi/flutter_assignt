@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment/api/api_service.dart';
-import 'package:flutter_assignment/dashboard.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/dashboard.dart';
 import 'package:flutter_assignment/model/login_model.dart';
 import 'package:flutter_assignment/share_service.dart';
-import 'package:flutter_assignment/signup.dart';
+import 'file:///D:/FlutterProjects/flutter_assignment/lib/ui/signup.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
   @override
